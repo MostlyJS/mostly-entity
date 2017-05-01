@@ -1,6 +1,6 @@
 {
   "name": "mostly-entity",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MostlyJS entity utilities for parse incoming and outgoing data",
   "author": "Forafish",
   "license": "MIT",
@@ -23,6 +23,7 @@
     "url": "git+https://github.com/MostlyJS/mostly-entity.git"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "debug": "^2.6.6",
     "lodash": "^4.17.4",
     "seamless-immutable": "^7.1.2"
@@ -38,7 +39,6 @@
     "gulp-babel": "^6.1.2",
     "gulp-changed": "^3.0.0",
     "gulp-eslint": "^3.0.1",
-    "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.6.0",
     "istanbul": "^0.4.5",
