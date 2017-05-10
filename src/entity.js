@@ -1,10 +1,11 @@
 import Immutable from 'seamless-immutable';
+import util from 'util';
+import makeDebug from 'debug';
+import _ from 'lodash';
+import assert from 'assert';
+import Dynamic from './dynamic';
 
-var util = require('util');
-var debug = require('debug')('mostly:poplarjs:entity');
-var _ = require('lodash');
-var assert = require('assert');
-var Dynamic = require('./dynamic');
+const debug = makeDebug('mostly:poplarjs:entity');
 
 /**
  * @class A wrapper to map returns with input value.
@@ -55,7 +56,7 @@ export default class Entity {
    * check whether an object is an Entity instance
    */
   static isEntity(entity) {
-    return !!(entity && _.isFunction(entity.isEntity) && this.prototype.isEntity.call(entity));
+    return _.isObject(entity) && entity instanceof Entity;
   }
 
 
