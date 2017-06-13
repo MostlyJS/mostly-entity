@@ -245,12 +245,10 @@ export default class Entity {
       return result;
     } else {
       let keys = Object.keys(self._mappings);
-      if (_.isEmpty(keys)) {
+      if (_.isEmpty(keys) && _.isEmpty(self._excepts)) {
         debug('%s entity has no mappings', self._name);
-        // if no exposes, return
-        return result;
-      } else
-      if (!_.isObject(originalObj)) {
+        return originalObj;
+      } else if (!_.isObject(originalObj)) {
         return originalObj;
       } else {
         // if excepts enabled then use all keys
