@@ -5,7 +5,7 @@ import _ from 'lodash';
 import assert from 'assert';
 import Dynamic from './dynamic';
 
-const debug = makeDebug('mostly:poplarjs:entity');
+const debug = makeDebug('mostly:entity');
 
 /**
  * @class A wrapper to map returns with input value.
@@ -268,46 +268,46 @@ export default class Entity {
           keys.unshift('id');
         }
         //debug(self._name, 'mappings', keys, 'excepts', self._excepts);
-        _.each(keys, function(k) {
-          var o = self._mappings[k] || { act: 'alias', value: k, type: 'any' };
+        _.each(keys, function(key) {
+          var opt = self._mappings[key] || { act: 'alias', value: key, type: 'any' };
           var val = null;
 
-          //debug(self._name, 'map ', k, 'o', o);
-          if (o['if'] && !o['if'](originalObj, options)) {
+          //debug(self._name, 'map', key, 'opt', opt);
+          if (opt['if'] && !opt['if'](originalObj, options)) {
             return;
           }
 
-          switch (o.act) {
+          switch (opt.act) {
             case 'function':
               try {
-                //debug('entity value function', o.value);
-                val = o.value(originalObj, options);
+                //debug('entity value function', opt.value);
+                val = opt.value(originalObj, options);
               } catch (e) {
-                console.error('entity function error', o.value, e);
+                console.error('entity function error', opt.value, e);
                 val = null;
               }
               break;
             case 'alias':
-              val = _.get(originalObj, o.value);
+              val = _.get(originalObj, opt.value);
               break;
             case 'get':
-              val = _.get(originalObj, o.value);
+              val = _.get(originalObj, opt.value);
               if (_.isUndefined(val)) {
-                debug('missing get %s %s of %s', self._name, o.value, originalObj._id);
+                debug('missing get %s %s of %s', self._name, opt.value, originalObj._id);
               }
               break;
             case 'omit':
-              val = _.omit(originalObj, o.value);
+              val = _.omit(_.get(originalObj, key), opt.value);
               break;
             case 'value':
-              val = o.value;
+              val = opt.value;
               break;
           }
 
           var isDefaultValueApplied = false;
           // if value is `null`, `undefined`, set default value
           if (_.isUndefined(val) || _.isNull(val)) {
-            val = o.default;
+            val = opt.default;
             isDefaultValueApplied = true;
           }
 
@@ -315,23 +315,23 @@ export default class Entity {
             val = converter(val, options);
           }
 
-          //debug(self._name, 'using ', isDefaultValueApplied, o.using);
-          if (!isDefaultValueApplied && o.using) {
-            //debug(self._name, 'using entity', val, o.using);
-            if (!_.isFunction(o.using.parse)) {
-              debug('#### Invalid Entity Using ####\n', self._name, 'using entity', val, o.using._name);
+          //debug(self._name, 'using ', isDefaultValueApplied, opt.using);
+          if (!isDefaultValueApplied && opt.using) {
+            //debug(self._name, 'using entity', val, opt.using);
+            if (!_.isFunction(opt.using.parse)) {
+              debug('#### Invalid Entity Using ####\n', self._name, 'using entity', val, opt.using._name);
             }
-            val = o.using.parse(val, options, converter);
+            val = opt.using.parse(val, options, converter);
           }
 
           // cast type according to predefined dynamic converters
           try {
-            val = Dynamic.convert(val, o.type, options);
+            val = Dynamic.convert(val, opt.type, options);
           } catch (e) {
             console.error("entity dynamic convert error", e);
           }
 
-          _.set(result, k, val);
+          _.set(result, key, val);
         });
 
         return result;
