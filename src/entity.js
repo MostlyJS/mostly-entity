@@ -86,6 +86,7 @@ export default class Entity {
    *    function
    *    alias
    *    value
+   *    omit
    * Usage:
    *    var entity = new Entity();
    *    entity.expose('name');
@@ -93,6 +94,7 @@ export default class Entity {
    *    entity.expose('fullname', { get: 'name' });
    *    entity.expose('name', { type: 'string', as: 'fullname' });
    *    entity.expose('sex', { value: 'male' });
+   *    entity.expose('child', { omit: ['parent'] });
    *    entity.expose('isAdult', function(obj) { return obj && obj.age >= 18; });
    *    entity.expose('activities', { using: myActivityEntity });
    *    entity.expose('extraInfo', { using: myExtraInfoEntity });
@@ -187,6 +189,10 @@ export default class Entity {
         if (options.value) {
           act = 'value';
           value = options.value;
+        } else
+        if (options.omit) {
+          act = 'omit';
+          value = options.omit;
         }
 
       }
@@ -289,6 +295,9 @@ export default class Entity {
               if (_.isUndefined(val)) {
                 debug('missing get %s %s of %s', self._name, o.value, originalObj._id);
               }
+              break;
+            case 'omit':
+              val = _.omit(originalObj, o.value);
               break;
             case 'value':
               val = o.value;
