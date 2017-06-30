@@ -297,7 +297,10 @@ export default class Entity {
               }
               break;
             case 'omit':
-              val = _.omit(_.get(originalObj, key), opt.value);
+              val = _.get(originalObj, key);
+              if (val) {
+                val = _.omit(val, opt.value);
+              }
               break;
             case 'value':
               val = opt.value;
