@@ -161,5 +161,3 @@ Dynamic.define('boolean', function convertBoolean(val) {
 Dynamic.define('any', function convertAny(val) {
   return val;
 });
-
-console.log(Dynamic.converters);
