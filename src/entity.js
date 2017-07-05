@@ -322,7 +322,7 @@ export default class Entity {
           if (!isDefaultValueApplied && opt.using) {
             //debug(self._name, 'using entity', val, opt.using);
             if (!_.isFunction(opt.using.parse)) {
-              debug('#### Invalid Entity Using ####\n', self._name, 'using entity', val, opt.using._name);
+              console.error('ERROR Invalid entity using\n', self._name, 'using entity', val, opt.using._name);
             }
             val = opt.using.parse(val, options, converter);
           }
