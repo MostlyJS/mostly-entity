@@ -26,7 +26,8 @@
     "babel-polyfill": "^6.23.0",
     "debug": "^2.6.6",
     "lodash": "^4.17.4",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
