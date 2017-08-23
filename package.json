@@ -26,6 +26,7 @@
     "babel-polyfill": "^6.23.0",
     "debug": "^2.6.6",
     "lodash": "^4.17.4",
+    "ramda": "^0.24.1",
     "seamless-immutable": "^7.1.2",
     "validator": "^8.0.0"
   },

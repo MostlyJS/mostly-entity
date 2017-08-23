@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import util from 'util';
 import makeDebug from 'debug';
 import _ from 'lodash';
+import fp from 'ramda';
 import assert from 'assert';
 import Dynamic from './dynamic';
 
@@ -309,7 +310,7 @@ export default class Entity {
 
           var isDefaultValueApplied = false;
           // if value is `null`, `undefined`, set default value
-          if (_.isUndefined(val) || _.isNull(val)) {
+          if (fp.isNil(val)) {
             val = opt.default;
             isDefaultValueApplied = true;
           }
@@ -334,7 +335,10 @@ export default class Entity {
             console.error("entity dynamic convert error", e);
           }
 
-          _.set(result, key, val);
+          // if value is `null`, `undefined`, skip
+          if (!fp.isNil(val)) {
+            _.set(result, key, val);
+          }
         });
 
         return result;
