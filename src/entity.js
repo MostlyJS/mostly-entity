@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import util from 'util';
 import makeDebug from 'debug';
 import _ from 'lodash';
-import fp from 'mostly-func';
+import fp from 'ramda';
 import assert from 'assert';
 import Dynamic from './dynamic';
 
