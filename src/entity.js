@@ -310,7 +310,7 @@ export default class Entity {
 
           var isDefaultValueApplied = false;
           // if value is `null`, `undefined`, set default value
-          if (fp.isNil(val)) {
+          if (fp.isNil(val) && opt.default !== undefined) {
             val = opt.default;
             isDefaultValueApplied = true;
           }
@@ -335,8 +335,8 @@ export default class Entity {
             console.error("entity dynamic convert error", e);
           }
 
-          // if value is `null`, `undefined`, skip
-          if (!fp.isNil(val)) {
+          // omit `undefined` value
+          if (val !== undefined) {
             _.set(result, key, val);
           }
         });
