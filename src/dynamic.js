@@ -16,7 +16,7 @@ const debug = makeDebug('mostly:poplarjs:dynamic');
  * @param {Context} ctx The Context
  */
 export default class Dynamic {
-  constructor(val, ctx) {
+  constructor (val, ctx) {
     this.val = val;
     this.ctx = ctx;
   }
@@ -35,14 +35,14 @@ export default class Dynamic {
    * @param {String} name The type name
    * @param {Function} converter
    */
-  static define(name, converter) {
+  static define (name, converter) {
     Dynamic.converters[name] = converter;
   }
 
   /**
    * undefine a converter via its name
    */
-  static undefine(name) {
+  static undefine (name) {
     delete Dynamic.converters[name];
   }
 
@@ -52,7 +52,7 @@ export default class Dynamic {
    * @param {String} type
    * @returns {Boolean}
    */
-  static canConvert(type) {
+  static canConvert (type) {
     return !!Dynamic.getConverter(type);
   }
 
@@ -62,7 +62,7 @@ export default class Dynamic {
    * @param {String} type
    * @returns {Function}
    */
-  static getConverter(type) {
+  static getConverter (type) {
     return Dynamic.converters[type];
   }
 
@@ -74,7 +74,7 @@ export default class Dynamic {
    * @param {Object} ctx
    * @returns {Object}
    */
-  static convert(val, toType, ctx) {
+  static convert (val, toType, ctx) {
     if (Array.isArray(toType)) {
       if (!Array.isArray(val)) {
         if (val === undefined || val === '') {
@@ -88,7 +88,7 @@ export default class Dynamic {
     }
 
     if (Array.isArray(val)) {
-      return _.map(val, function(v) {
+      return _.map(val, function (v) {
         return Dynamic.convert(v, toType, ctx);
       });
     }
@@ -101,7 +101,7 @@ export default class Dynamic {
    * @param {String} type
    * @returns {*} The concrete value
    */
-  to(type) {
+  to (type) {
     var converter = Dynamic.getConverter(type);
     assert(converter, 'No Type converter defined for ' + type);
     return converter(this.val, this.ctx);
@@ -120,25 +120,25 @@ export default class Dynamic {
  */
 Dynamic.converters = {};
 
-Dynamic.define('number', function convertNumber(val) {
+Dynamic.define('number', function convertNumber (val) {
   if (val === 0) return val;
   if (!val) return val;
   return Number(val);
 });
 
-Dynamic.define('date', function convertDate(val) {
+Dynamic.define('date', function convertDate (val) {
   if (val instanceof Date) return val;
   if (!val) return val;
   return new Date(val);
 });
 
-Dynamic.define('string', function convertString(val) {
+Dynamic.define('string', function convertString (val) {
   if (typeof val === 'string') return val;
   if (!val) return val;
   return String(val);
 });
 
-Dynamic.define('boolean', function convertBoolean(val) {
+Dynamic.define('boolean', function convertBoolean (val) {
   switch (typeof val) {
     case 'string':
       switch (val) {
@@ -158,6 +158,6 @@ Dynamic.define('boolean', function convertBoolean(val) {
   }
 });
 
-Dynamic.define('any', function convertAny(val) {
+Dynamic.define('any', function convertAny (val) {
   return val;
 });

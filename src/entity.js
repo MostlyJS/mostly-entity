@@ -12,14 +12,14 @@ const debug = makeDebug('mostly:entity');
  * @class A wrapper to map returns with input value.
  */
 export default class Entity {
-  constructor(name, definitions) {
+  constructor (name, definitions) {
     this._name = name || 'UnNamed';
     this._mappings = {};
     this._excepts = false;
     this.define(definitions);
   }
 
-  extend(name) {
+  extend (name) {
     if (Immutable.isImmutable(this)) {
       const mutable = this.asMutable({ deep: true });
       mutable._name = name;
@@ -29,15 +29,15 @@ export default class Entity {
     }
   }
 
-  asImmutable() {
+  asImmutable () {
     return Immutable(this, { prototype: Entity.prototype });
   }
 
-  define(definitions) {
+  define (definitions) {
     var self = this;
 
     if (_.isPlainObject(definitions)) {
-      _.each(definitions, function(fn, name) {
+      _.each(definitions, function (fn, name) {
         if (fn === true) {
           self.expose(name);
         } else if (Array.isArray(fn)) {
@@ -56,7 +56,7 @@ export default class Entity {
   /**
    * check whether an object is an Entity instance
    */
-  static isEntity(entity) {
+  static isEntity (entity) {
     return _.isObject(entity) && entity instanceof Entity;
   }
 
@@ -64,7 +64,7 @@ export default class Entity {
   /**
    * Include all fields except
    */
-  excepts() {
+  excepts () {
     let excepts = this._excepts || [];
     this._excepts = _.union(excepts, _.values(arguments), ['__v']);
   }
@@ -101,7 +101,7 @@ export default class Entity {
    *    entity.expose('extraInfo', { using: myExtraInfoEntity });
    *    entity.expose('condition', { if: function(obj, options) { return true } });
    */
-  expose() {
+  expose () {
     // ...names, options, fn
 
     var message = '\'%s\' is not a valid string';
@@ -130,7 +130,7 @@ export default class Entity {
       options = {};
     }
 
-    _.each(arguments, function(name) {
+    _.each(arguments, function (name) {
       var value = null,
         defaultVal = null,
         act = null,
@@ -215,7 +215,7 @@ export default class Entity {
    * @param {Object} input: input object values
    * @param {Function} converter: value converter, which can accept one parameter
    */
-  parse(input, options, converter) {
+  parse (input, options, converter) {
     //debug('entity.parse', input, options, converter);
     var originalObj;
     var result = {};
@@ -246,7 +246,7 @@ export default class Entity {
     if (Array.isArray(originalObj)) {
       // if input is an Array, then loop it
       result = [];
-      _.each(originalObj, function(obj) {
+      _.each(originalObj, function (obj) {
         result.push(self.parse(obj, options, converter));
       });
       return result;
@@ -269,7 +269,7 @@ export default class Entity {
           keys.unshift('id');
         }
         //debug(self._name, 'mappings', keys, 'excepts', self._excepts);
-        _.each(keys, function(key) {
+        _.each(keys, function (key) {
           var opt = self._mappings[key] || { act: 'alias', value: key, type: 'any' };
           var val = null;
 
@@ -349,7 +349,7 @@ export default class Entity {
   /**
    * check if an object is an Entity
    */
-  isEntity() {
+  isEntity () {
     return this instanceof Entity;
   }
 }
