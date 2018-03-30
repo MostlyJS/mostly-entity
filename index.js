@@ -1,5 +1,4 @@
-if (!global._babelPolyfill) { require('babel-polyfill'); }
-
-module.exports = require('./lib/entity');
-module.exports.Dynamic = require('./lib/dynamic');
-module.exports.utils = require('./lib/utils');
+require = require("esm")(module/*, options*/);
+module.exports = require('./src/entity').default;
+module.exports.Dynamic = require('./src/dynamic').default;
+module.exports.utils = require('./src/utils');
