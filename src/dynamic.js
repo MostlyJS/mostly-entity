@@ -6,7 +6,7 @@ import makeDebug from 'debug';
 import _ from 'lodash';
 import assert from 'assert';
 
-const debug = makeDebug('mostly:poplarjs:dynamic');
+const debug = makeDebug('mostly:entity:dynamic');
 
 /**
  * @class
