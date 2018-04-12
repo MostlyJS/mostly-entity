@@ -13,12 +13,12 @@ const debug = makeDebug('mostly:entity:dynamic');
  * Create a dynamic value from the given value.
  *
  * @param {*} val The value object
- * @param {Context} ctx The Context
+ * @param {*} opts The Options
  */
 export default class Dynamic {
-  constructor (val, ctx) {
+  constructor (val, opts) {
     this.val = val;
-    this.ctx = ctx;
+    this.opts = opts;
   }
 
   /**
@@ -26,8 +26,8 @@ export default class Dynamic {
    * `ApiMethod` argument defines a type with the given `name`.
    *
    * ```js
-   * Dynamic.define('MyType', function(val, ctx) {
-   *   // use the val and ctx objects to return the concrete value
+   * Dynamic.define('MyType', function(val, opts) {
+   *   // use the val and opts objects to return the concrete value
    *   return new MyType(val);
    * });
    * ```
@@ -71,10 +71,10 @@ export default class Dynamic {
    *
    * @param {String} val
    * @param {String} type
-   * @param {Object} ctx
+   * @param {Object} opts
    * @returns {Object}
    */
-  static convert (val, toType, ctx) {
+  static convert (val, toType, opts) {
     if (Array.isArray(toType)) {
       if (!Array.isArray(val)) {
         if (val === undefined || val === '') {
@@ -84,15 +84,15 @@ export default class Dynamic {
         }
       }
 
-      return Dynamic.convert(val, toType[0], ctx);
+      return Dynamic.convert(val, toType[0], opts);
     }
 
     if (Array.isArray(val)) {
       return _.map(val, function (v) {
-        return Dynamic.convert(v, toType, ctx);
+        return Dynamic.convert(v, toType, opts);
       });
     }
-    return (new Dynamic(val, ctx)).to(toType);
+    return (new Dynamic(val, opts)).to(toType);
   }
 
   /**
@@ -104,7 +104,7 @@ export default class Dynamic {
   to (type) {
     var converter = Dynamic.getConverter(type);
     assert(converter, 'No Type converter defined for ' + type);
-    return converter(this.val, this.ctx);
+    return converter(this.val, this.opts);
   }
 
   
