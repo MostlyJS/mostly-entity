@@ -75,7 +75,7 @@ export default class Entity {
    *   value: 'name',
    *   default: null,
    *   using: MyEntity,
-   *   if: function(obj, opts) {}
+   *   if: function (obj, opts) {}
    * }
    * type: support array type
    *    number or ['number']
@@ -96,10 +96,10 @@ export default class Entity {
    *    entity.expose('name', { type: 'string', as: 'fullname' });
    *    entity.expose('sex', { value: 'male' });
    *    entity.expose('child', { omit: ['parent'] });
-   *    entity.expose('isAdult', function(obj) { return obj && obj.age >= 18; });
+   *    entity.expose('isAdult', function (obj) { return obj && obj.age >= 18; });
    *    entity.expose('activities', { using: myActivityEntity });
    *    entity.expose('extraInfo', { using: myExtraInfoEntity });
-   *    entity.expose('condition', { if: function(obj, options) { return true } });
+   *    entity.expose('condition', { if: function (obj, options) { return true } });
    */
   expose () {
     // ...names, options, fn

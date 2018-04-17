@@ -26,7 +26,7 @@ export default class Dynamic {
    * `ApiMethod` argument defines a type with the given `name`.
    *
    * ```js
-   * Dynamic.define('MyType', function(val, ctx) {
+   * Dynamic.define('MyType', function (val, ctx) {
    *   // use the val and ctx objects to return the concrete value
    *   return new MyType(val);
    * });
