@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import util from 'util';
 import makeDebug from 'debug';
 import _ from 'lodash';
-import fp from 'ramda';
+import fp from 'mostly-func';
 import assert from 'assert';
 import Dynamic from './dynamic';
 
@@ -221,17 +221,17 @@ export default class Entity {
     var result = {};
     var self = this;
 
-    if (_.isUndefined(input) || _.isNull(input)) {
-      originalObj = {};
+    if (fp.isNil(input) || fp.isEmpty(input)) {
+      return input;
+    }
+
+    if (typeof input.toObject === 'function') { // mongoose object
+      originalObj = input.toObject();
+    } else
+    if (typeof input.toJSON === 'function') {   // sequelize object
+      originalObj = input.toJSON();
     } else {
-      if (typeof input.toObject === 'function') { // mongoose object
-        originalObj = input.toObject();
-      } else
-      if (typeof input.toJSON === 'function') {   // sequelize object
-        originalObj = input.toJSON();
-      } else {
-        originalObj = input;
-      }
+      originalObj = input;
     }
 
     if (_.isFunction(options)) {
