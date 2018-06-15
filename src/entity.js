@@ -15,7 +15,7 @@ export default class Entity {
   constructor (name, definitions) {
     this._name = name || 'UnNamed';
     this._mappings = {};
-    this._excepts = false;
+    this._discards = false;
     this.define(definitions);
   }
 
@@ -62,11 +62,11 @@ export default class Entity {
 
 
   /**
-   * Include all fields except
+   * Include all fields to be discarded
    */
-  excepts () {
-    let excepts = this._excepts || [];
-    this._excepts = _.union(excepts, _.values(arguments), ['__v']);
+  discard () {
+    let discards = this._discards || [];
+    this._discards = _.union(discards, _.values(arguments), ['__v']);
   }
 
   /**
@@ -252,23 +252,23 @@ export default class Entity {
       return result;
     } else {
       let keys = Object.keys(self._mappings);
-      if (_.isEmpty(keys) && _.isEmpty(self._excepts)) {
+      if (_.isEmpty(keys) && _.isEmpty(self._discards)) {
         debug('%s entity has no mappings', self._name);
         return originalObj;
       } else if (!_.isObject(originalObj)) {
         return originalObj;
       } else {
-        // if excepts enabled then use all keys
-        if (self._excepts) {
+        // if discards enabled then use all keys
+        if (self._discards) {
           keys = _.union(keys, _.keys(originalObj));
-          keys = _.difference(keys, self._excepts);
+          keys = _.difference(keys, self._discards);
         }
         // sort keys and put id at the first
         keys = _.sortBy(keys);
         if (keys.indexOf('id') > -1) {
           keys.unshift('id');
         }
-        //debug(self._name, 'mappings', keys, 'excepts', self._excepts);
+        //debug(self._name, 'mappings', keys, 'discards', self._discards);
         _.each(keys, function (key) {
           var opt = self._mappings[key] || { act: 'alias', value: key, type: 'any' };
           var val = null;
