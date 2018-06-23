@@ -29,7 +29,7 @@ export default class Entity {
     }
   }
 
-  asImmutable () {
+  freeze () {
     return Immutable(this, { prototype: Entity.prototype });
   }
 
