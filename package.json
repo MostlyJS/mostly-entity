@@ -1,6 +1,6 @@
 {
   "name": "mostly-entity",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "MostlyJS entity utilities for parse incoming and outgoing data",
   "author": "Forafish",
   "license": "MIT",
