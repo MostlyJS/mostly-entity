@@ -5,6 +5,10 @@ Mostly Entity
 
 Utilities for parsing incoming and exposing outgoing data fields for vary endpoints.
 
+# Documentation
+
+Please see the [documentation site](https://mostlyjs.github.io).
+
 # Usage
 
 ## Installation
