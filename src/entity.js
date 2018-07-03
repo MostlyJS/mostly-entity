@@ -119,7 +119,7 @@ export default class Entity {
       }
 
       // extract `options`
-      options = _.isPlainObject(_.last(arguments)) ? Array.prototype.pop.call(arguments) : {};
+      options = _.isPlainObject(_.last(arguments))? Array.prototype.pop.call(arguments) : {};
 
       if (arguments.length > 1) {
         assert(!options.as, 'You may not use the :as option on multi-attribute exposures.');
@@ -164,7 +164,7 @@ export default class Entity {
       if (!_.isEmpty(options)) {
 
         if (options.hasOwnProperty('default')) {
-          defaultVal = _.isUndefined(options['default']) ? null : options['default'];
+          defaultVal = _.isUndefined(options['default'])? null : options['default'];
         }
 
         if (options['if']) {
