@@ -1,21 +1,14 @@
-
-/*!
- * Module dependencies.
- */
-import makeDebug from 'debug';
-import _ from 'lodash';
-import assert from 'assert';
-
-const debug = makeDebug('mostly:entity:dynamic');
+const _ = require('lodash');
+const assert = require('assert');
 
 /**
  * @class
- * Create a dynamic value from the given value.
+ * Create a dynamic value = require(the given value.
  *
  * @param {*} val The value object
  * @param {Context} ctx The Context
  */
-export default class Dynamic {
+class Dynamic {
   constructor (val, ctx) {
     this.val = val;
     this.ctx = ctx;
@@ -161,3 +154,5 @@ Dynamic.define('boolean', function convertBoolean (val) {
 Dynamic.define('any', function convertAny (val) {
   return val;
 });
+
+module.exports = Dynamic;

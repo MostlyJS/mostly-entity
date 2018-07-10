@@ -1,17 +1,17 @@
-import Immutable from 'seamless-immutable';
-import util from 'util';
-import makeDebug from 'debug';
-import _ from 'lodash';
-import fp from 'mostly-func';
-import assert from 'assert';
-import Dynamic from './dynamic';
+const Immutable = require('seamless-immutable');
+const util = require('util');
+const makeDebug = require('debug');
+const _ = require('lodash');
+const fp = require('mostly-func');
+const assert = require('assert');
+const Dynamic = require('./dynamic');
 
 const debug = makeDebug('mostly:entity');
 
 /**
  * @class A wrapper to map returns with input value.
  */
-export default class Entity {
+class Entity {
   constructor (name, definitions) {
     this._name = name || 'UnNamed';
     this._mappings = {};
@@ -353,3 +353,5 @@ export default class Entity {
     return this instanceof Entity;
   }
 }
+
+module.exports = Entity;

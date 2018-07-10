@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import validator from 'validator';
+const _ = require('lodash');
+const validator = require('validator');
 
 const DEFAULT_DATE = new Date('1900-01-01').toISOString();
-export function ISODate (name) {
+function ISODate (name) {
   return function (obj) {
     var datetime = _.get(obj, name);
     if (datetime) {
@@ -21,20 +21,20 @@ export function ISODate (name) {
   };
 }
 
-export function isPresent (name) {
+function isPresent (name) {
   return function (obj) {
     return _.has(obj, name);
   };
 }
 
-export function isObject (name) {
+function isObject (name) {
   return function (obj) {
     return _.isArray(obj[name]) || _.isObject(obj[name]);
     //return _.isArrayLikeObject(obj[name]);
   };
 }
 
-export function isPopulated (name) {
+function isPopulated (name) {
   return function (obj) {
     if (_.isArray(obj[name])) {
       return _.reduce(obj[name], (result, val) => {
@@ -49,3 +49,10 @@ export function isPopulated (name) {
     }
   };
 }
+
+module.exports = {
+  ISODate,
+  isPresent,
+  isObject,
+  isPopulated
+};
