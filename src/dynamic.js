@@ -99,8 +99,6 @@ class Dynamic {
     assert(converter, 'No Type converter defined for ' + type);
     return converter(this.val, this.ctx);
   }
-
-  
 }
 
 /**
