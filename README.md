@@ -14,7 +14,7 @@ Please see the [documentation site](https://mostlyjs.github.io).
 ## Installation
 
 ```bash
-npm install mostly-entity
+npm install mostly-entity --save
 ```
 
 # License
